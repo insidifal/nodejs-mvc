@@ -1,8 +1,9 @@
-const express = require('express');
-const app = express();
+import express from 'express';
+import cityRoutes from './routes/cityRoutes.mjs';
+import { sequelize } from './models/cities.mjs';
 
+const app = express();
 const PORT = 3000;
-const userRoutes = require('./routes/userRoutes');
 
 // Set ejs as the view engine
 app.set('view engine', 'ejs');
@@ -10,10 +11,10 @@ app.set('view engine', 'ejs');
 // For parsing form data (POST requests)
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => res.send('<h1>Hello Express</h1>'));
+app.use(express.static('public')); // serves index.html
+app.use(cityRoutes);
 
-// Mount the user routes
-app.use('/users', userRoutes);
+await sequelize.sync().then( () => console.log('Database synced'));
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
