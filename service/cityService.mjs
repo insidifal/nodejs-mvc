@@ -26,6 +26,8 @@ export const getCityData = async (cityName) => {
                     longitude: data.longitude,
                     elevation: data.elevation,
                 });
+                if (!city) throw new Error('No city returned');
+                console.log(`City name ${city.name}`);
             }
         } catch(e) {
             console.log(`Error fetching city ${cityName}: ${e}`);

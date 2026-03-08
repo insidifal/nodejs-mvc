@@ -1,11 +1,11 @@
 import { Sequelize, DataTypes, Op } from 'sequelize';
 
-export const sequelize = new Sequelize({
+export const sequelizeCities = new Sequelize({
     dialect: 'sqlite',
     storage: '.database.sqlite'
 });
 
-export const City = sequelize.define(
+export const City = sequelizeCities.define(
     'City', {
         id: { type: DataTypes.INTEGER, primaryKey: true, allowNull: false },
         name: { type: DataTypes.TEXT, allowNull: false },
@@ -19,7 +19,12 @@ export const City = sequelize.define(
 );
 
 // upsert to update if the ID already exists
-export const newCity = async (cityData) => await City.upsert(cityData);
+export const newCity = async (cityData) => {
+    // create city
+    const [instance, created] = await City.upsert(cityData, { returning: true });
+    // and then return the instance
+    return instance;
+};
 
 // search for a city
 export const getCity = async (cityName) => await City.findOne({

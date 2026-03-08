@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main>
     <h1></h1>
+
+    <div id="notification" role="alert" aria-live="assertive"></div>
 
     <div class="search-container">
         <label for="search-box">Search:</label>
         <input type="text" id="search-box" name="search-box" placeholder="London">
         <button id="search-button" aria-controls="city-details">Go</button>
     </div>
+    <div id="status" aria-live="polite"></div>
+
     <section id="city-details" aria-label="Search Results"></section>
     <script src="script.js"></script>
-
-    <a href="/cities">Back to Cities List</a>
 </main>
 </body>
 </html>
